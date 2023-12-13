@@ -4,7 +4,7 @@
 
    <groupId>org.girod</groupId>
    <artifactId>fxsvgimage</artifactId>
-   <version>1.1-SNAPSHOT</version>
+   <version>1.1</version>
 
    <properties>
       <maven.compiler.source>1.8</maven.compiler.source>
@@ -121,65 +121,15 @@
    </build>
 
    <distributionManagement>
-      <snapshotRepository>
-         <id>ossrh</id>
-         <url>https://s01.ss.sonatype.org/content/repositories/snapshots</url>
-      </snapshotRepository>
       <repository>
-         <id>ossrh</id>
-         <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+         <id>nexus-releases</id>
+         <name>Nexus Release Repository</name>
+         <url>http://192.168.1.100:8081/repository/nexus-releases/</url>
       </repository>
+<!--      <repository>-->
+<!--         <id>nexus-snapshot</id>-->
+<!--         <name>Nexus Snapshot Repository</name>-->
+<!--         <url>http://192.168.1.100:8081/repository/nexus-snapshot/</url>-->
+<!--      </repository>-->
    </distributionManagement>
-   <profiles>
-      <profile>
-         <!--
-         Note: To be able to sign and publish you need to add the below section to you ~/.m2/settings.xml
-         Then you can simply publish to Sonatype by typing: mvn -Prelease clean deploy
-         See https://central.sonatype.org/publish/publish-guide/ and https://central.sonatype.org/publish/publish-maven/ for details.
-         <settings>
-               <servers>
-                 <server>
-                         <id>gpg.passphrase</id>
-                         <passphrase>your_secret_gpg_password</passphrase>
-                     </server>
-                     <server>
-                         <id>ossrh</id>
-                         <username>Your_Sonatype_username</username>
-                         <password>Your_Sonatype_password</password>
-                     </server>
-               </servers>
-           </settings>
-         -->
-         <id>release</id>
-         <build>
-            <plugins>
-               <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-gpg-plugin</artifactId>
-                  <version>1.6</version>
-                  <executions>
-                     <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                           <goal>sign</goal>
-                        </goals>
-                     </execution>
-                  </executions>
-               </plugin>
-               <plugin>
-                  <groupId>org.sonatype.plugins</groupId>
-                  <artifactId>nexus-staging-maven-plugin</artifactId>
-                  <version>1.6.8</version>
-                  <extensions>true</extensions>
-                  <configuration>
-                     <serverId>ossrh</serverId>
-                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                  </configuration>
-               </plugin>
-            </plugins>
-         </build>
-      </profile>
-   </profiles>
 </project>
